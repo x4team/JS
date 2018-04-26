@@ -3,9 +3,16 @@ html, body, ul, li {
 	padding: 0;
 	background: #333333;
 }
+#heading {
+	color: #fff422;
+}
+
+h1 {
+	text-align: center;
+}
 
 #cryptomachine{
-	margin: 40px auto;
+	margin: 20px auto;
 	text-align: center;
 
 }
