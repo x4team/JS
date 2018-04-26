@@ -1,0 +1,46 @@
+html, body, ul, li {
+	margin: 20;
+	padding: 0;
+	background: #333333;
+}
+
+#cryptomachine{
+	margin: 40px auto;
+	text-align: center;
+
+}
+#cryptomachine .input_box{
+
+}
+
+#cryptomachine .input_box input{
+	width: 450px;
+	height: 450px;
+	position: center;
+	transition: opacity 1s;
+	border-radius: 10%;
+}
+
+#cryptomachine .input_box input.input_message{
+	opacity: 1;
+	text-align: center;
+}
+
+#cryptomachine .buttons {
+	opacity: 1;
+} 
+input {
+  background: #fff422;
+  color: #000129;
+  border-radius: 10px;
+  width: 200px;
+  height: 50px;
+  padding: 10px;
+  margin: 15px auto;
+}
+
+input:active {
+  background: #000321;
+  color: #fff123;
+  border-radius: 7%;
+}
