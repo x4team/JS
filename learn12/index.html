@@ -4,20 +4,27 @@
  		<meta charset="utf-8">
 		<title>Enigma CryptoMachine Online</title>
 		<link rel="stylesheet" href="css/styles.css">
+		<link href="https://fonts.googleapis.com/css?family=Do+Hyeon" rel="stylesheet">
 	</head>
 	<body>
 			<div id="heading">
 				<h1>Enigma Online CryptoMachine</h1>
 		    </div>
 			<div id="cryptomachine">
-					<div class="input_box">
-						<input type="text" id="input_message" name="input_message" value="" />
+					<div class="input_box_message">
+						<input type="text" id="input_message" name="input_message" class="input_message" placeholder="Please enter message for encryption..." value="" />
 					</div>
+					<div class="input_box_key">	
+						<input required maxlength="8" type="password" id="input_key" name="input_key" class="input_key" placeholder="Please enter KEY for encryption. * Strictly 8 symbols!" value="" />
+					</div>
+					<div hidden id="alertKeyMessage" class="alertKeyMessage"><p>Please enter KEY encryption strictly ONLY 8 characters!</p></div>
+					<div id="outputCode" class="outputCode"><br/></div>
 					<div class="buttons">
-						<input type="button" id="btn_encrypt" value="Зашифровать" class="btn_encrypt" >
-						<input type="button" id="btn_decrypt" value="Расшифровать" class="btn_decrypt">
+						<input type="button" id="btn_encrypt" value="Encrypt" class="btn_encrypt" >
+						<input type="button" id="btn_decrypt" value="Decrypt" class="btn_decrypt">
 					</div>
 			</div>
 	</body>
 	<script src="js/script.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </html>

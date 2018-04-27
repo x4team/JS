@@ -9,6 +9,8 @@ html, body, ul, li {
 
 h1 {
 	text-align: center;
+	font-family: 'Do Hyeon', sans-serif;
+
 }
 
 #cryptomachine{
@@ -16,26 +18,42 @@ h1 {
 	text-align: center;
 
 }
-#cryptomachine .input_box{
 
-}
-
-#cryptomachine .input_box input{
+#cryptomachine .input_box_message input.input_message{
 	width: 450px;
 	height: 450px;
 	position: center;
-	transition: opacity 1s;
 	border-radius: 10%;
-}
-
-#cryptomachine .input_box input.input_message{
 	opacity: 1;
 	text-align: center;
 }
 
-#cryptomachine .buttons {
-	opacity: 1;
-} 
+#cryptomachine .input_box_key input.input_key{
+	width: 450px;
+	height: 15px;
+	position: center;
+	transition: opacity 1s;
+	border-radius: 15px;
+	font-size: 12pt;
+	color: #333333;
+}
+
+#cryptomachine .alertKeyMessage {
+	text-align: center;
+	color: white;
+	font-family: 'Do Hyeon', sans-serif;
+	transition: opacity 1s;
+	font-size: 14pt;
+}
+
+#cryptomachine .outputCode {
+	text-align: center;
+	color: white;
+	font-family: 'Do Hyeon', sans-serif;
+	transition: opacity 1s;
+	font-size: 14pt;
+}
+
 input {
   background: #fff422;
   color: #000129;
@@ -43,11 +61,38 @@ input {
   width: 200px;
   height: 50px;
   padding: 10px;
-  margin: 15px auto;
+  margin: 10px auto;
 }
 
-input:active {
-  background: #000321;
-  color: #fff123;
-  border-radius: 7%;
+.input_message {
+	font-size: 14pt;
+	color: #333333;
 }
+
+
+
+#cryptomachine .button {
+	opacity: 1;
+	font-family: 'Do Hyeon', sans-serif;
+	font-size: 12pt;
+	color: white;
+} 
+
+.btn_encrypt {
+ 	font-size: 14pt;
+	color: #333333;
+
+
+}
+
+.btn_decrypt {
+ 	font-size: 14pt;
+	color: #333333;
+	margin-left: 60px;
+
+}
+
+
+
+
+

@@ -19,50 +19,111 @@ text.onclick = function(){
 
 */
 
-var btn_encrypt = document.getElementById("btn_encrypt"); //можно поселектору
-var btn_decrypt = document.querySelector('#cryptomachine .buttons .btn_decrypt'); // можно по id
+var btn_encrypt = document.getElementById("btn_encrypt"); //получить элемент можно поселектору
+var btn_decrypt = document.getElementById("btn_decrypt"); // или можно по id
+var key_crypt = [];
+var message = [];
+var outputCode =[];
+var encryption = [];
+var deencryption=[];
 
- 
-var i = 0;
 
 
-function someFunc(){
+//Функция проверяет данные пользователя и выводит сообщение если он вводит не по шаблону
+
+function encryptMessage(){
    var input_message = document.getElementById("input_message").value;
-   alert(input_message);
+   var input_key = document.getElementById("input_key").value;
+   alertDiscrepancy(input_key);
+
+   if (alertDiscrepancy(input_key)==true) { 
+   						key_crypt = input_key;
+   						message = input_message;
+  						//Выполнение основного кода
+  									//Алгоритм ключа шифрования
+									var key_encrypt = [];
+									key_encrypt = input_key;
+									var key_encrypt_method = (key_encrypt[0].charCodeAt(0) + key_encrypt[1].charCodeAt(0) + key_encrypt[2].charCodeAt(0) + key_encrypt[3].charCodeAt(0)) * key_encrypt[4].charCodeAt(0) + (key_encrypt[5].charCodeAt(0) * key_encrypt[6].charCodeAt(0) * key_encrypt[7].charCodeAt(0));
+									//Цикл шифрования
+									for (var i = 0; i < message.length; i++)
+
+   									{
+
+   										var temp_symbol = message[i].charCodeAt(0) * key_encrypt_method; //Алгоритм шифрования сообщения
+
+    									//Добавляем зашифрованный символ в массив encryption
+
+    									encryption[i] = temp_symbol;
+
+    									temp_symbol = 0;
+
+   									}
+   									
+							
+  	document.getElementById('outputCode').innerHTML = "<p>Your CODE:</p>" + encryption;			
+  		} 
    }
-document.getElementById("btn_encrypt").onclick = someFunc;
+
+
+document.getElementById("btn_encrypt").onclick = encryptMessage;
+//Конец функции шифрования
+
+
+//Дешифрование
+function decryptMessage(){
+   var input_message = document.getElementById("input_message").value;
+   var input_key = document.getElementById("input_key").value;
+   alertDiscrepancy(input_key);
+
+   if (alertDiscrepancy(input_key)==true) { 
+   						key_crypt = input_key;
+   						message = input_message;
+  						//Выполнение основного кода
+
+  										//Дешифруем
+										var messageOriginal=[];
+										messageOriginal=input_message;
+										
+										for (var i = 0; i < messageOriginal.length; i++) {
+
+									    		//Дешифруем сообщение
+									    		var key_encrypt = [];
+												key_encrypt = input_key;
+												var key_encrypt_method = (key_encrypt[0].charCodeAt(0) + key_encrypt[1].charCodeAt(0) + key_encrypt[2].charCodeAt(0) + key_encrypt[3].charCodeAt(0)) * key_encrypt[4].charCodeAt(0) + (key_encrypt[5].charCodeAt(0) * key_encrypt[6].charCodeAt(0) * key_encrypt[7].charCodeAt(0));
+												
+    											temp_symbol = String.fromCharCode(messageOriginal[i] / key_encrypt_method);
+    
+    											//Добавляем расшифрованный символ в массив deencryption
+												deencryption[i] = temp_symbol;
+
+   												}
+   										document.getElementById('outputCode').innerHTML = "<p>Your MESSAGE:</p>" + deencryption.join('');
+
+  								  		} 
+   
+   }
+document.getElementById("btn_decrypt").onclick = decryptMessage;
 
 
 
-/* btn_decrypt.onclick = function() {
-	images[i].className = '';
-	i++;
 
-	if (i>=images.length) {
-		i = 0;
-	}
-
-	images[i].className = 'showed';
+//Выводим сообщение, если значение ключа меньше 8 символов, или больше 8
+function alertDiscrepancy(key) {
+	if (key.length < 8 || key.length > 8) {
+				//document.getElementById('alertKeyMessage').innerHTML = "<p>Please enter KEY encryption strictly ONLY 8 characters!</p>"; 
+				$('#alertKeyMessage').show(1000, function(){
+  					setTimeout(function(){
+    					$('#alertKeyMessage').hide(500);
+  					}, 3000);
+				});
+				return false;
+				} else return true;
+				 
 }
 
 
 
-
-
-
-
-var message = prompt("Please enter message for encryption: \n *The text should be simple. A space is denoted by a semicolon  ; ");
-
-
-//Вводим ключ шифрования. Обязательно не менее и не более 8 символов.
-var key_encrypt_input = prompt("Please enter KEY for encryption: \n *Strictly ONLY 8 characters ");
-var key_encrypt = [];
-
-//Проверяем если пользователь вводит не по шаблону
-while (key_encrypt_input.length<8||key_encrypt_input.length>8) {
-key_encrypt_input = prompt("Please enter KEY for encryption: \n *Strictly ONLY 8 characters "); 
-}  
-
+/*
 //Если условие выполнено - запоминаем
 var key_encrypt=key_encrypt_input; 
 
