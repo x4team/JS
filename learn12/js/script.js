@@ -25,7 +25,6 @@ var key_crypt = [];
 var message = [];
 var outputCode =[];
 var encryption = [];
-var deencryption=[];
 
 
 
@@ -80,26 +79,28 @@ function decryptMessage(){
    						message = input_message;
   						//Выполнение основного кода
 
-  										//Дешифруем
-										var messageOriginal=[];
-										messageOriginal=input_message;
+  							//Дешифруем
+							var messageOriginal=[];
+							messageOriginal=input_message.split(',');					
+							var deencryption=[];
+
 										
-										for (var i = 0; i < messageOriginal.length; i++) {
-
-									    		//Дешифруем сообщение
-									    		var key_encrypt = [];
-												key_encrypt = input_key;
-												var key_encrypt_method = (key_encrypt[0].charCodeAt(0) + key_encrypt[1].charCodeAt(0) + key_encrypt[2].charCodeAt(0) + key_encrypt[3].charCodeAt(0)) * key_encrypt[4].charCodeAt(0) + (key_encrypt[5].charCodeAt(0) * key_encrypt[6].charCodeAt(0) * key_encrypt[7].charCodeAt(0));
+								for (var i = 0; i < messageOriginal.length; i++) {
+								
+								//Дешифруем сообщение
+								var key_encrypt = [];
+								key_encrypt = input_key;
+								var key_encrypt_method = (key_encrypt[0].charCodeAt(0) + key_encrypt[1].charCodeAt(0) + key_encrypt[2].charCodeAt(0) + key_encrypt[3].charCodeAt(0)) * key_encrypt[4].charCodeAt(0) + (key_encrypt[5].charCodeAt(0) * key_encrypt[6].charCodeAt(0) * key_encrypt[7].charCodeAt(0));
 												
-    											temp_symbol = String.fromCharCode(messageOriginal[i] / key_encrypt_method);
+    							var temp_symbol = String.fromCharCode(messageOriginal[i] / key_encrypt_method);
     
-    											//Добавляем расшифрованный символ в массив deencryption
-												deencryption[i] = temp_symbol;
+    							//Добавляем расшифрованный символ в массив deencryption
+								deencryption[i] = temp_symbol;							
+   								}
+   								var str = deencryption.join('');
+   							document.getElementById('outputCode').innerHTML = "<p>Your MESSAGE:</p>" + str;
 
-   												}
-   										document.getElementById('outputCode').innerHTML = "<p>Your MESSAGE:</p>" + deencryption.join('');
-
-  								  		} 
+  							} 
    
    }
 document.getElementById("btn_decrypt").onclick = decryptMessage;
