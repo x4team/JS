@@ -26,38 +26,70 @@ var calc = {
   inputDigits: 0,
   addition: 0,
   subtraction: 0,
+  multiplication: 0,
   calculate: 0,
-  logAction: ['тест'],
+  logAction: ['start'],
+  flagNotEmptyValue: false,
 
   btnDigitsClick: function (el) {
+    if(this.flagNotEmptyValue){
+    document.getElementById('input_digits').value = '';
+    }
   document.getElementById('input_digits').value += el.value;
   this.inputDigits = document.getElementById('input_digits').value;
+  this.flagNotEmptyValue = false;
   },
 
   btnCommaClick: function (el) {
   document.getElementById('input_digits').value += el.value;
   this.inputDigits = document.getElementById('input_digits').value;
-  this.disabled = 'disabled';
+  //После первого нажатия точки - деактивируем кнопку на повторный ввод
+  document.getElementById("btn_comma").disabled=true;
   },
 
   btnAdditionClick: function () {
-  this.addition = parseInt(document.getElementById('input_digits').value);
+  // 1)Сразу активируем запятую
+  document.getElementById("btn_comma").disabled=false;
+  // 2)Получаем в свойство addition объекта calc значение поля ввода value
+  this.addition = parseFloat(document.getElementById('input_digits').value);
   this.calculate = this.calculate + this.addition;
-  //После добавления значений в переменную calculate, обнуляемся
-  document.getElementById('input_digits').value = '';
+  //Возвращаем значение
+  document.getElementById('input_digits').value = this.calculate;
+  this.flagNotEmptyValue = true;
+  //Обнуляем переменную "сложения"
   this.addition = 0;
-  //Добавляем в логи действие "+" в конец массива logAction
+  //Добавляем в логи действие "+" в конец массива logAction (так мы будем знать что нажал пользователь последним)
   this.logAction.push('+'); 
   },
 
   btnSubtractionClick: function () {
-  this.subtraction = parseInt(document.getElementById('input_digits').value);
+  // 1)Сразу активируем запятую
+  document.getElementById("btn_comma").disabled=false;
+  // 2)Получаем в свойство addition объекта calc значение поля ввода value
+  this.subtraction = parseFloat(document.getElementById('input_digits').value);
   this.calculate = this.calculate + this.subtraction;
-  //После добавления значений в переменную calculate, обнуляемся
-  document.getElementById('input_digits').value = '';
+  //Возвращаем переменную calculate
+  document.getElementById('input_digits').value = this.calculate;
+  this.flagNotEmptyValue = true;
+  //Обнуляем переменную "вычитание"
   this.subtraction = 0;
-  //Добавляем в логи действие "-" в конец массива logAction
+  //Добавляем в логи действие вычитание "-" в конец массива logAction
   this.logAction.push('-'); 
+  },
+
+  btnMultiplicationClick: function () {
+  // 1)Сразу активируем запятую
+  document.getElementById("btn_comma").disabled=false;
+  // 2)Получаем в свойство multiplication объекта calc значение поля ввода value
+  this.multiplication = parseFloat(document.getElementById('input_digits').value);
+  this.calculate = this.calculate * this.multiplication;
+  //Возвращаем переменную calculate
+  document.getElementById('input_digits').value = this.calculate;
+  this.flagNotEmptyValue = true;
+  //Обнуляем переменную "Умножение"
+  this.multiplication = 0;
+  //Добавляем в логи действие умножение "*" в конец массива logAction
+  this.logAction.push('*'); 
   },
 
   btnCalculateClick: function () {
@@ -67,22 +99,30 @@ var calc = {
      деление, или умножение) */   
   if (tempvalue!='') {
      if (this.logAction[this.logAction.length - 1]=='+') {
-    this.calculate = parseInt(this.calculate) + parseInt(tempvalue);
+    this.calculate = parseFloat(this.calculate) + parseFloat(tempvalue);
       } else if (this.logAction[this.logAction.length - 1]=='-') {
-    this.calculate = parseInt(this.calculate) - parseInt(tempvalue);
-    }
-  document.getElementById('input_digits').value = parseInt(this.calculate);
-  this.calculate = 0;
-  tempvalue = 0;
+    this.calculate = parseFloat(this.calculate) - parseFloat(tempvalue);
+      } else if (this.logAction[this.logAction.length - 1]=='*') {
+    this.calculate = parseFloat(this.calculate) * parseFloat(tempvalue);
+      }
+    document.getElementById('input_digits').value = parseFloat(this.calculate);
+    //Обнуляем переменные в конце
+    this.calculate = 0;
+    tempvalue = 0;
   }
   },
 
   btnAC: function () {
-  //Обнуляем все
+  //Обнуляем свойства в объектах
   this.calculate = 0;
   this.addition = 0;
   this.subtraction = 0;
+  this.logAction = ['start'];
+  this.temp = 0;
+  this.multiplication = 0;
   document.getElementById('input_digits').value = ''; 
+  //Возвращаем и активируем точку в значениях
+  document.getElementById("btn_comma").disabled=false;
   },
 
 };

@@ -13,7 +13,7 @@
 			<div id="calc">
 
 					<div class="input_box">	
-						<input type="text" id="input_digits" name="input_digits" class="input_digits" placeholder="0" value="" />
+						<input type="text" id="input_digits" name="input_digits" class="input_digits" placeholder="" value="" />
 					</div>
 
 					<div class="buttons">
@@ -25,7 +25,8 @@
 						<input type="button" id="btn_4" value="4" class="btn_4" onClick="calc.btnDigitsClick(this); return false;">
 						<input type="button" id="btn_5" value="5" class="btn_5" onClick="calc.btnDigitsClick(this); return false;">
 						<input type="button" id="btn_6" value="6" class="btn_6" onClick="calc.btnDigitsClick(this); return false;">
-						<input type="button" id="btn_multiplication" value="*" class="btn_multiplication" ><br/>
+						
+						<input type="button" id="btn_multiplication" value="*" class="btn_multiplication" onClick="calc.btnMultiplicationClick(this); return false;"><br/>
 
 						<input type="button" id="btn_1" value="1" class="btn_1" onClick="calc.btnDigitsClick(this); return false;">
 						<input type="button" id="btn_2" value="2" class="btn_2" onClick="calc.btnDigitsClick(this); return false;">
