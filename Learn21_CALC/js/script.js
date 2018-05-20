@@ -24,13 +24,16 @@ text.onclick = function(){
 
 
 var calc = {
-  inputDigits: 0,
+  inputDigits: 0, 
   addition: 0,
   subtraction: 0,
   multiplication: 0,
+  division: 0,
   calculate: 0,
+  percent: 0,
   logAction: ['start'],
   flagNotEmptyValue: false,
+
 
   btnDigitsClick: function (el) {
     if(this.flagNotEmptyValue){
@@ -81,16 +84,47 @@ var calc = {
   btnMultiplicationClick: function () {
   // 1)Сразу активируем запятую
   document.getElementById("btn_comma").disabled=false;
-  // 2)Получаем в свойство multiplication объекта calc значение поля ввода value
-  this.multiplication = parseFloat(document.getElementById('input_digits').value);
-  this.calculate = this.calculate * this.multiplication;
-  //Возвращаем переменную calculate
+  // 2)Получаем значение поля ввода value в свойство multiplication объекта calc 
+  this.calculate = parseFloat(document.getElementById('input_digits').value);
+  //Присваиваем свойству умножения multiplication значение calculate
+  this.multiplication = this.calculate;
+    //Возвращаем переменную calculate
   document.getElementById('input_digits').value = this.calculate;
   this.flagNotEmptyValue = true;
   //Обнуляем переменную "Умножение"
   this.multiplication = 0;
   //Добавляем в логи действие умножение "*" в конец массива logAction
   this.logAction.push('*'); 
+  },
+  
+  btnDivisionClick: function () {
+  // 1)Сразу активируем запятую
+  document.getElementById("btn_comma").disabled=false;
+  // 2)Получаем значение поля ввода value в свойство division объекта calc 
+  this.calculate = parseFloat(document.getElementById('input_digits').value);
+  //Присваиваем свойству деления division значение calculate
+  this.division = this.calculate;
+    //Возвращаем переменную calculate
+  document.getElementById('input_digits').value = this.calculate;
+  this.flagNotEmptyValue = true;
+  //Обнуляем переменную "division"
+  this.division = 0;
+  //Добавляем в логи действие деление "/" в конец массива logAction
+  this.logAction.push('/'); 
+  },
+
+  btnPercentClick: function () {
+  // 1)Сразу активируем запятую
+  document.getElementById("btn_comma").disabled=false;
+  // 2)Получаем значение поля ввода value в свойство percent объекта calc 
+  this.percent = parseFloat(document.getElementById('input_digits').value);
+      //Возвращаем переменную calculate
+  document.getElementById('input_digits').value = this.percent;
+  this.flagNotEmptyValue = true;
+  //Обнуляем переменную "percent"
+  //this.percent = 0;
+  //Добавляем в логи действие проценты "%" в конец массива logAction
+  this.logAction.push('%'); 
   },
 
   btnCalculateClick: function () {
@@ -105,6 +139,10 @@ var calc = {
     this.calculate = parseFloat(this.calculate) - parseFloat(tempvalue);
       } else if (this.logAction[this.logAction.length - 1]=='*') {
     this.calculate = parseFloat(this.calculate) * parseFloat(tempvalue);
+      } else if (this.logAction[this.logAction.length - 1]=='/') {
+    this.calculate = parseFloat(this.calculate) / parseFloat(tempvalue);
+      } else if (this.logAction[this.logAction.length - 1]=='%') {
+    this.calculate = (parseFloat(this.calculate) / 100) * parseFloat(this.percent);
       }
     document.getElementById('input_digits').value = parseFloat(this.calculate);
     //Обнуляем переменные в конце
@@ -121,6 +159,8 @@ var calc = {
   this.logAction = ['start'];
   this.temp = 0;
   this.multiplication = 0;
+  this.division = 0;
+  this.percent = 0;
   document.getElementById('input_digits').value = ''; 
   //Возвращаем и активируем точку в значениях
   document.getElementById("btn_comma").disabled=false;
