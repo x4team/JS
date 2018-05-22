@@ -3,3 +3,11 @@ html, body, ul, li {
 	padding: 0;
 	background: #33333;
 }
+
+p.redtext {
+	color: red;
+}
+/* Также можно задать целому классу красный цвет
+.redtext {
+	color: red;
+}
