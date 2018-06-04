@@ -57,7 +57,7 @@ function validate2(phoneNumber) {
    был принят, он должен состоять из семи цифр 0-9, которые МОГУТ разделяться дефисом. */
 
 //Код с использованием методов строк
-function validate(phoneNumber) {
+function validate3(phoneNumber) {
 	
 	if (phoneNumber.length > 8 || phoneNumber.length < 7) { //Узнаем сколько символов содержит строка. Если БОЛЬШЕ 8 или МЕНЬШЕ 7 - возврат false
 		console.log("Verification " + phoneNumber + " NOT passed!");
@@ -65,11 +65,11 @@ function validate(phoneNumber) {
 	}
 	for (var i = 0; i < phoneNumber.length; i++) {
 		if (i === 3) {
-			if(phoneNumber.length === 8 &&& phoneNumber.charAt(i) !== '-') { //Проверяем каждый символ строки. Убеждаемся, что длина строки 8 символов и с индексом 3 НЕ СОДЕРЖИТ ДЕФИС
+			if(phoneNumber.length === 8 && phoneNumber.charAt(i) !== '-') { //Проверяем каждый символ строки. Убеждаемся, что длина строки 8 символов и с индексом 3 НЕ СОДЕРЖИТ ДЕФИС
 				console.log("Verification " + phoneNumber + " NOT passed!");
 				return false;
 			}
-		} else if (phoneNumber.length === 7 &&& isNaN(phoneNumber.charAt(i))) { //Также проверяем чтобы длина была 7 символов А затем проверяем, что каждый символ с индексами 0-2 и 4-6 содержит цифру
+		} else if (phoneNumber.length === 7 && isNaN(phoneNumber.charAt(i))) { //Также проверяем чтобы длина была 7 символов А затем проверяем, что каждый символ с индексами 0-2 и 4-6 содержит цифру
 			console.log("Verification " + phoneNumber + " NOT passed!");
 			return false;
 		}
@@ -78,10 +78,10 @@ function validate(phoneNumber) {
 	return true;
 } 
 //var phone = "123-4567w";  
-//validate(phone);
+//validate3(phone);
 
 //Другой вариант: код с проверкой двух чисел и дефиса:
-function validate2(phoneNumber) {
+function validate4(phoneNumber) {
 	if(phoneNumber.length > 8 || phoneNumber.length < 7) { //Также как в первом варианте (см.выше)
 		console.log("Verification " + phoneNumber + " NOT passed!");
 		return false;
@@ -95,14 +95,22 @@ function validate2(phoneNumber) {
 		return false;
 	}
 	if (phoneNumber.length === 8) {    
-		return phoneNumber.charAt(3) !== "-"; //ОПРЕДЕЛИТЬ КАК РАБОТАЕТ ВОЗВРАТ, НАЙТИ ОШИБКУ И ПЕРЕПИСАТЬ С МЕТОДОМ SPLIT
+		return (phoneNumber.charAt(3) === "-"); //ОПРЕДЕЛИТЬ КАК РАБОТАЕТ ВОЗВРАТ, НАЙТИ ОШИБКУ И ПЕРЕПИСАТЬ С МЕТОДОМ SPLIT
 	}
 	console.log("Verification " + phoneNumber + " passed!");
 	return true;
 }
 
 //var phone = "023-4567";  
-//validate2(phone);
+//validate4(phone);
+
+function validate5(phoneNumber) {
+	    
+		return phoneNumber.match(/^\d{3}-?\d{4}$/);
+	}
+
+var phone = "023-4567";  
+validate5(phone);
 
 }
 window.onload = init; 
