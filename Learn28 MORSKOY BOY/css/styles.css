@@ -53,6 +53,15 @@ form input {
 	border-color: rgb(83, 175, 19);
 	font-size: 1em;
 }
+/* Если элемент относится к классу hit, ему назначается фоновое изображение ship.png
+   Если же элемент относится к классу miss, то miss.png */
+.hit {
+	background: url("../ship.png") no-repeat center center;
+}
+
+.miss {
+	background: url("../miss.png") no-repeat center center;
+}
 
 
 
