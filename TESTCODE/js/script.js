@@ -1,4 +1,4 @@
-function init () {
+/* function init () {
 
 function longest(s1, s2) {
   //Split the strings into an array character
@@ -25,5 +25,54 @@ longest("aretheyhere", "yestheyarehere");
 
 }
 window.onload = init; 
+*/
 
 
+/*****************************/
+/*Передача функции в функцию */
+/*****************************/
+/*function sayIt(translator) {
+  var phrase = translator("Goodbye");
+  alert(phrase);
+}*/
+
+/**********************************************/
+/*В зависимости от phrase будет разный "алерт"*/
+/**********************************************/
+/*function hawaiianTranslator(word) {
+  if (word === "Hello") return "Aloha";
+  if (word === "Goodbye") return "Aloha, too";
+}
+
+sayIt(hawaiianTranslator);
+*/
+
+
+function  fun(echo) {
+  console.log(echo);
+}
+
+fun("hello");
+
+function  boo(aFunction) {
+  aFunction("boo");
+}
+
+boo(fun);
+
+console.log(fun);
+
+fun(boo);
+
+var moreFun = fun;
+
+moreFun("hello again");
+
+
+
+function echoMaker() {
+  return fun;
+}
+
+var bigFun = echoMaker();
+bigFun("Is there an echo?");
