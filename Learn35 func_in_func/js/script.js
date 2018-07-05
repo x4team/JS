@@ -97,18 +97,34 @@ function serveCustomer(passenger) {
 //ЛУЧШИЙ СПОСОБ! Операции, выполняемые стюардессами для обслуживания
 function serveCustomer(passenger) {
 	//Предложить напитки
-	createDrinkOrder(passenger); //Вызывыется одним вызовом, вместо примера ВЫШЕ!
+		//createDrinkOrder теперь возвращает функцию, которая сохраняется в переменной getDrinkOrderFunction
+	var getDrinkOrderFunction = createDrinkOrder(passenger);
+	getDrinkOrderFunction(); //Используем функцию, полученную от createDrinkOrder, каждый раз когда потребуется
+						   //получить заказ напитков от некоторого пассажира.
 	//Предложить обед
+	getDrinkOrderFunction();
 	//Забрать мусор
+	getDrinkOrderFunction();
 }
 
-//Отдельная функция заказа Напитков
+//Отдельная функция заказа Напитков. Она возвращает функцию, которая знает какие напитки следует предлагать пассажиру.
 function createDrinkOrder(passenger) {
-	if (passenger.ticket === "firstclass") {  
-		alert("Would you like a cocktail or wine?");
+	//При вызове функция упаковывает код заказа напитка в функцию и возвращает эту функцию.
+	//***ТЕПЕРЬ код проверки типа билета пассажира выполняется только ОДИН раз!!!
+	var orderFunction; //Переменная для хранения функции, которую мы возвращаем.
+
+	if (passenger.ticket === "firstclass") {
+		orderFunction = function() {  //Если пассажир летит 1 классом, создается функция, 
+									  //которая принимает заказы напитков для первого класса.
+			alert("Would you likje a cocktail or wine?");
+		};
 	} else {
-		alert("Your choice is cola or water.");
+		orderFunction = function() { //В противном случае создается функция для заказа 
+									 //напитков пассажирами второго класса.
+			alert("Your choice is cola or water.");
+		};
 	}
+	return orderFunction; //Наконец, возвращаем функцию
 }
 
 //Здесь передается функция checkNoFlyList. Это означает, что функция processPassenger будет проверять каждого
