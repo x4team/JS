@@ -5,9 +5,9 @@
 // - каждый пассажир представляется объектом со свойствами name и paid
 // - свойство name содержит имя в виде простой строки
 // - а в свойстве paid хранится булевское значение, которое показывает, заплатил ли пассажир за билет.
-var passengers = [  { name: "Jane Doloop", paid: true, ticket: "coach" }, //ВЫБОР НАПИТКА ЗАВИСИТ ОТ КЛАССА БИЛЕТА! (coach или firstclass)
+var passengers = [  { name: "Jane Doloop", paid: true, ticket: "coach" }, //ВЫБОР НАПИТКА ЗАВИСИТ ОТ КЛАССА БИЛЕТА! (coach или firstclass или premium)
                     { name: "Dr. Evel", paid: true, ticket: "firstclass" }, //Данные пассажирова (можете дополнить свои)
-                    { name: "Sue Property", paid: false, ticket: "firstclass" },
+                    { name: "Sue Property", paid: false, ticket: "premium" },
                     { name: "John Funcall", paid: true, ticket: "coach" } 
                  ];
 /*****************************************************************************************************
@@ -47,7 +47,7 @@ function processPassengers(passengers, testFunction) {
 	for (var i = 0; i < passengers.length; i++) { // <- Последовательно перебираем всех пассажиров
 		if (testFunction(passengers[i])) { // <- И вызываем проверочную функцию для каждого пассажира
 			return false; // <- Если провер. функция возвращает true, то мы возвращаем false. Иначе говоря,
-		}				  //    если пассажир не проше проверку (не заплатил за билет, входит в черный список 		
+		}				  //    если пассажир не прошел проверку (не заплатил за билет, входит в черный список 		
 	}					  //    и т.д), вылет следует запретить!
 	return true; // <- Если управление передано в эту точку, значит все 
 	             //    пассажиры прошли проверку и функц. возвр true
@@ -94,6 +94,10 @@ function serveCustomer(passenger) {
 	//Забрать мусор
 } */
 
+//**********************************************************************************************************
+//АННОТАЦИЯ: Сначала мы вызываем createDrinkOrder для получения функции getDrinkOrderFunction, умеющей запрашивать
+// заказ у пассажира, ПОСЛЕ чего вызываем эту же функцию каждый раз, когда потребуется принять заказ.
+//**********************************************************************************************************
 //ЛУЧШИЙ СПОСОБ! Операции, выполняемые стюардессами для обслуживания
 function serveCustomer(passenger) {
 	//Предложить напитки
@@ -102,10 +106,22 @@ function serveCustomer(passenger) {
 	getDrinkOrderFunction(); //Используем функцию, полученную от createDrinkOrder, каждый раз когда потребуется
 						   //получить заказ напитков от некоторого пассажира.
 	//Предложить обед
-	getDrinkOrderFunction();
+	var getDinnerOrderFunction = createDinnerOrder(passenger);
+	getDinnerOrderFunction(); //Используем функцию, полученную от createDinnerOrder, каждый раз когда потребуется
+						   //получить заказ обеда от некоторого пассажира.
 	//Забрать мусор
-	getDrinkOrderFunction();
+	
 }
+
+//Перебираем ВСЕХ пассажиров и вызываем serveCustomer для каждого пассажира
+function servePassengers(passengers) {
+	for (var i = 0; i < passengers.length; i++) {
+		serveCustomer(passengers[i]);
+	}
+}
+
+//И ТАКЖЕ вызываем функцию servePassengers, ЧТОБЫ вся эта схема заработала!
+servePassengers(passengers);
 
 //Отдельная функция заказа Напитков. Она возвращает функцию, которая знает какие напитки следует предлагать пассажиру.
 function createDrinkOrder(passenger) {
@@ -116,16 +132,49 @@ function createDrinkOrder(passenger) {
 	if (passenger.ticket === "firstclass") {
 		orderFunction = function() {  //Если пассажир летит 1 классом, создается функция, 
 									  //которая принимает заказы напитков для первого класса.
-			alert("Would you likje a cocktail or wine?");
+			alert("Would you like a cocktail or wine?");
+		};
+	} else if (passenger.ticket === "premium"){
+		orderFunction = function() { //В противном случае создается функция для заказа 
+									 //напитков пассажирами "улучшенного экономического" класса.
+			alert("Your choice is cola or water or vine.");
 		};
 	} else {
 		orderFunction = function() { //В противном случае создается функция для заказа 
 									 //напитков пассажирами второго класса.
-			alert("Your choice is cola or water.");
+			alert("Your choice is cola or water");
 		};
 	}
 	return orderFunction; //Наконец, возвращаем функцию
 }
+
+//Отдельная функция заказа ОБЕДОВ. Она возвращает функцию, которая знает какие обеды следует предлагать пассажиру.
+function createDinnerOrder(passenger) {
+	//При вызове функция упаковывает код заказа обеда в функцию и возвращает эту функцию.
+	//***ТЕПЕРЬ код проверки типа билета пассажира выполняется только ОДИН раз!!!
+	var orderFunction; //Переменная для хранения функции, которую мы возвращаем.
+
+	if (passenger.ticket === "firstclass") {
+		orderFunction = function() {  //Если пассажир летит 1 классом, создается функция, 
+									  //которая принимает заказы обедов для первого класса.
+			alert("Would you like a chicken or pasta?");
+		};
+	} else if (passenger.ticket === "premium"){
+		orderFunction = function() { //В противном случае создается функция для заказа 
+									 //обедов пассажирами "улучшенного экономического" класса.
+			alert("Your choice is snack or cheese plate.");
+		};
+	} else {
+		orderFunction = function() { //В противном случае создается функция для заказа 
+									 //обедов пассажирами второго класса.
+			alert("Your choice is nuts or crackers");
+		};
+	}
+	return orderFunction; //Наконец, возвращаем функцию
+}
+
+//****************************************************************************************************************
+
 
 //Здесь передается функция checkNoFlyList. Это означает, что функция processPassenger будет проверять каждого
 //пассажира на присутствие в "черном списке"
