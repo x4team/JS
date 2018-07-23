@@ -48,31 +48,40 @@ sayIt(hawaiianTranslator);
 */
 
 
-function  fun(echo) {
-  console.log(echo);
-}
+// function  fun(echo) {
+//   console.log(echo);
+// }
 
-fun("hello");
+// fun("hello");
 
-function  boo(aFunction) {
-  aFunction("boo");
-}
+// function  boo(aFunction) {
+//   aFunction("boo");
+// }
 
-boo(fun);
+// boo(fun);
 
-console.log(fun);
+// console.log(fun);
 
-fun(boo);
+// fun(boo);
 
-var moreFun = fun;
+// var moreFun = fun;
 
-moreFun("hello again");
+// moreFun("hello again");
 
 
 
-function echoMaker() {
-  return fun;
-}
+// function echoMaker() {
+//   return fun;
+// }
 
-var bigFun = echoMaker();
-bigFun("Is there an echo?");
+// var bigFun = echoMaker();
+// bigFun("Is there an echo?");
+// }
+
+(function(food) {
+  if (food === "coockies") {
+    alert("More please");
+  } else if (food === "cake") {
+    alert("Yum yum");
+  }
+})("coockies");
